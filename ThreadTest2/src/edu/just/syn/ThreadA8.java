@@ -20,7 +20,7 @@ class Main2 {
 class Sub2 extends Main2 {
 
     @Override
-    public void serviceMethod() {
+    public synchronized void serviceMethod() {
         try {
             System.out.println("int sub 下一步 sleep begin "
                     + Thread.currentThread().getName() + " time = "
@@ -30,7 +30,7 @@ class Sub2 extends Main2 {
                     + Thread.currentThread().getName() + " time = "
                     + System.currentTimeMillis());
         } catch (InterruptedException e) {
-            e.printStackTrace();
+        e.printStackTrace();
         }
     }
 }

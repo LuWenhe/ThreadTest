@@ -24,7 +24,7 @@ class Test {
             try {
                 System.out.println(Thread.currentThread().getName()
                         + " method nothis begin " + System.currentTimeMillis());
-                Thread.sleep(2000);
+                Thread.sleep(3000);
                 System.out.println(Thread.currentThread().getName()
                         + " method nothis end " + System.currentTimeMillis());
             } catch (InterruptedException e) {

@@ -9,15 +9,17 @@ class Service {
      * 如果 anyString 对象是全局的，每次使用 synchronized(anyString)同步代码块进行同步操作时，
      * 对象监视器就是同一个对象 anyString，此时两个线程同步执行，即按照顺序执行
      */
-    private Object anyObject = new Object();
+//    private Object anyObject = new Object();
 
     public void setUsernameAndPassword(String username, String password) {
         /**
          * 如果 anyString 对象是在方法中的，局部的，那么每个线程调用这个方法都会 new 新的 anyString 对象，
-         * 之后使用 synchronized(anyString) 同步代码块进行同步操作时，因为对象监视器不是同一个对象，此时运行的结果
-         * 就是异步调用的，即两个线程交叉运行
+* 之后使用 synchronized(anyString) 同步代码块进行同步操作时，因为对象监视器不是同一个对象，此时运行的结果
+* 就是异步调用的，即两个线程交叉运行
          */
-//        Object anyObject = new Object();
+        Object anyObject = new Object();
+
+        System.out.println(Thread.currentThread().getName() + " " + anyObject);
 
         //此时 anyString 对象作为对象监视器
         synchronized (anyObject) {

@@ -58,14 +58,14 @@ class MyService {
      */
     public MyOneList addServiceMethod(MyOneList myOneList, String data) {
         try {
-            Object a = this;
-            System.out.println(a);
+//            System.out.println(myOneList);
+            System.out.println(this);
 
             synchronized (myOneList) {
                 //如果如果集合长度小于 1
                 if (myOneList.getSize() < 1) {
                     System.out.println(Thread.currentThread().getName() + " 进入了方法，时间是："
-                            + System.currentTimeMillis() + " " + myOneList.getSize());
+                            + System.currentTimeMillis());
                     //模拟从远程花费 2s 取回数据
                     Thread.sleep(2000);
                     //存入数据

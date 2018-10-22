@@ -11,7 +11,7 @@ class Service1 {
     public void a() {
         Object anyObject = new Object();
 
-        synchronized (this) {
+        synchronized (anyObject) {
             try {
                 System.out.println(Thread.currentThread().getName()
                         + " a begin " + System.currentTimeMillis());

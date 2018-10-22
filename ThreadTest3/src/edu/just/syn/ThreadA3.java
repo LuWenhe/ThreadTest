@@ -6,10 +6,12 @@ package edu.just.syn;
 class Task3 {
 
     synchronized public void otherMethod() {
-        System.out.println("--------------------------run--otherMethod");
+        System.out.println("otherMethod：" + this);
+        System.out.println(" --------------------------run--otherMethod");
     }
 
     public void doLongTimeTask() {
+        System.out.println("doLongTimeTask：" + this);
         synchronized (this) {
             for (int i = 0; i < 50; i++) {
                 System.out.println("synchronized "

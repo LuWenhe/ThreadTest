@@ -16,12 +16,18 @@ public class RunThread extends Thread {
     public void run() {
         System.out.println("进入 run 了");
         while (isRunning == true) {
-            synchronized (this) {}
+//            synchronized (this) {}
             /**
              * 这里如果使用 synchronized(this)，那么不加 volatile 也是会跳出循环的，
              * 因为 synchronized 可以使多个线程之间具有可见性，synchronized 能够保证同一
-             * 时刻只有一个线程获取锁然后执行同步代码，并在释放锁之前会将变量的修改刷新到
-             * 主存中
+             * 时刻只有一个线程获取锁然后执行同步代码，
+             * 即线程 main 会先从主内存中读取 isRunning 变量，然后将该变量拷贝到自己的本地内存，
+             * 修改 isRunning 为 false 之后，在释放锁之前将该值刷新到主内存。这个时候，
+             * 线程 main 会隐式的告诉线程 runThread 已经刷新完毕，然后线程 runThread 会直接从主内存
+             * 中获取 isRunning 的值，这个时候的值是 false，然后循环就不再执行了
+             *
+             * 使用 pringln 是一个道理，因为它本身就是通过 synchronized(this) 来实现了，即能实现
+             * 可见性
              */
 //            System.out.println("线程被停止了！");
         }
@@ -42,7 +48,7 @@ public class RunThread extends Thread {
     public static void main(String[] args) throws InterruptedException {
         RunThread runThread = new RunThread();
         runThread.start();
-        Thread.sleep(1);
+        Thread.sleep(1444);
         runThread.setRunning(false);
         System.out.println("已经赋值为 false 了");
     }

@@ -5,7 +5,7 @@ package edu.just.syn1;
  */
 class Service5 {
 
-    public static void print(String stringParam) {
+    public void print(String stringParam) {
         synchronized (stringParam) {
             try {
                 while (true) {

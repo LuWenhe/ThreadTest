@@ -6,6 +6,9 @@ class Service2 {
 
     public void runMethod() {
         while (isCount) {
+            /**
+             * synchronized 可以保证可见性，即可以看到最新的修改后的变量的值
+             */
             synchronized (this) {
 
             }

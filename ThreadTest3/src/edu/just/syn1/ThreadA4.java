@@ -2,9 +2,7 @@ package edu.just.syn1;
 
 class Service4 {
 
-    public static void printA() {
-        System.out.println(Thread.currentThread().getName() + " " + Service4.class);
-
+    public void printA() {
         synchronized (Service4.class) {
             try {
                 System.out.println(Thread.currentThread().getName() + " 在 "
@@ -18,9 +16,7 @@ class Service4 {
         }
     }
 
-    public static void printB() {
-        System.out.println(Thread.currentThread().getName() + " " + Service4.class);
-
+    public void printB() {
         synchronized (Service4.class) {
             System.out.println(Thread.currentThread().getName() + " 在 "
                     + System.currentTimeMillis() + "进入 printB");

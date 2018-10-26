@@ -10,13 +10,7 @@ class PrintString1 implements Runnable {
 
     public void printStringMethod() {
         while (isContinuePrint) {
-            System.out.println(Thread.currentThread().getName()
-                    + " run printStringMethod " + System.currentTimeMillis());
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
         }
     }
 
@@ -28,10 +22,11 @@ class PrintString1 implements Runnable {
 
 public class Run1 {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         PrintString1 printString1 = new PrintString1();
         Thread thread = new Thread(printString1);
         thread.start();
+        Thread.sleep(2000);
         System.out.println("我要停止它！" + Thread.currentThread().getName());
         printString1.setContinuePrint(false);
     }

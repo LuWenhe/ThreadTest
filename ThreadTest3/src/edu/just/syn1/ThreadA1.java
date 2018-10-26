@@ -10,7 +10,7 @@ package edu.just.syn1;
  */
 class MyObject {
 
-    /*synchronized public void speedPrintString() {
+    synchronized public void speedPrintString() {
         System.out.println(Thread.currentThread().getName()
                 + " speedPrintString begin " + System.currentTimeMillis());
         try {
@@ -21,9 +21,9 @@ class MyObject {
         //        System.out.println("---------------------");
         System.out.println(Thread.currentThread().getName()
                 + " speedPrintString end " + System.currentTimeMillis());
-    }*/
+    }
 
-    public void speedPrintString() {
+    /*public void speedPrintString() {
         synchronized (this) {
             System.out.println(Thread.currentThread().getName()
                     + " speedPrintString begin " + System.currentTimeMillis());
@@ -31,7 +31,7 @@ class MyObject {
             System.out.println(Thread.currentThread().getName()
                     + " speedPrintString end " + System.currentTimeMillis());
         }
-    }
+    }*/
 
 }
 
@@ -89,6 +89,7 @@ public class ThreadA1 extends Thread {
     public static void main(String[] args) throws InterruptedException {
         Service1 service1 = new Service1();
         MyObject object = new MyObject();
+
         ThreadA1 threadA1 = new ThreadA1(service1, object);
         threadA1.setName("AAA");
         threadA1.start();

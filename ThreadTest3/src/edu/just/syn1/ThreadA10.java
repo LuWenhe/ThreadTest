@@ -25,6 +25,7 @@ class User {
     public String getPassword() {
         return password;
     }
+
 }
 
 class Service10 {

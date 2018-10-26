@@ -4,11 +4,11 @@ class MyThread extends Thread {
 
     volatile public static int count;
 
-    private static void addCount() {
-        for (int i = 0; i < 100; i++) {
+    private synchronized static void addCount() {
+        for (int i = 0; i < 10; i++) {
             count++;
+            System.out.println(Thread.currentThread().getName() + " count = " + count);
         }
-        System.out.println(Thread.currentThread().getName() + " count = " + count);
     }
 
     @Override
@@ -20,13 +20,10 @@ class MyThread extends Thread {
 
 public class Run2 {
 
-    public static void main(String[] args) {
-        MyThread[] myThreads = new MyThread[100];
+    public static void main(String[] args) throws InterruptedException {
+        MyThread[] myThreads = new MyThread[10];
         for (int i = 0; i < 10; i++) {
             myThreads[i] = new MyThread();
-        }
-
-        for (int i = 0; i < 10; i++) {
             myThreads[i].start();
         }
     }

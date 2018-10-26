@@ -57,7 +57,6 @@ public class ThreadA9 extends Thread {
      * 一开始方法 testMethod 是同步的，对象锁是 lock = "123"，当线程 AAA 先执行同步方法时，
      * 将对象锁 lock = "123" 修改成了 lock = "456"，这时，两个线程持有的就不是相同的对象锁了，
      * 此时线程 AAA 和 线程 BBB 异步执行
-     *
      */
     public static void main(String[] args) throws InterruptedException {
         MyService service = new MyService();

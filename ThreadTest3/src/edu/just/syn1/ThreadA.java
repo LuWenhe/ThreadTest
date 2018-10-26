@@ -6,7 +6,6 @@ package edu.just.syn1;
 class Service {
 
     public void testMethod(Object object) {
-        System.out.println(object);
 
         synchronized (object) {
             try {
@@ -57,13 +56,12 @@ public class ThreadA extends Thread {
     public static void main(String[] args) {
         Service service = new Service();
         Object object = new Object();
-        Object object1 = new Object();
         ThreadA threadA = new ThreadA(service, object);
         threadA.setName("AAA");
         threadA.start();
 
-        ThreadB threadB = new ThreadB(service, object1);
-        threadA.setName("BBB");
+        ThreadB threadB = new ThreadB(service, object);
+        threadB.setName("BBB");
         threadB.start();
     }
 

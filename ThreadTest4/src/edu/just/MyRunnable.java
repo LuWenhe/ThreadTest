@@ -8,10 +8,11 @@ public class MyRunnable {
         @Override
         public void run() {
             synchronized (lock) {
+
                 System.out.println(Thread.currentThread().getName()
                         + " wait begin time " + System.currentTimeMillis());
                 try {
-                    lock.wait(5000);
+                    lock.wait(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -21,10 +22,30 @@ public class MyRunnable {
         }
     };
 
-    public static void main(String[] args) {
-        Thread thread = new Thread(runnable);
-        thread.start();
-    }
+    private static Runnable runnable1 = new Runnable() {
+        @Override
+        public void run() {
+            synchronized (lock) {
 
+                System.out.println(Thread.currentThread().getName()
+                        + " wait begin time2 " + System.currentTimeMillis());
+                System.out.println(Thread.currentThread().getName()
+                        + " wait end time " + System.currentTimeMillis());
+            }
+        }
+    };
+
+    public static void main(String[] args) throws InterruptedException {
+        Thread thread = new Thread(runnable);
+        thread.setName("AAA");
+        thread.start();
+
+//        Thread.sleep(1100);
+        Thread.sleep(1);
+
+        Thread thread2 = new Thread(runnable1);
+        thread2.setName("BBB");
+        thread2.start();
+    }
 
 }

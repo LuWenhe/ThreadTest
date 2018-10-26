@@ -70,18 +70,18 @@ class ThreadC6 extends Thread {
 /**
  * 如果只使用一次 notify() 方法，那么方法 notify() 仅仅随机唤醒一个线程
  */
-class NotifyM extends Thread {
+class NotifyOne extends Thread {
 
     private Object lock;
 
-    public NotifyM(Object lock) {
+    public NotifyOne(Object lock) {
         this.lock = lock;
     }
 
     @Override
     public void run() {
         synchronized (lock) {
-            System.out.println("motifyM");
+            System.out.println("notifyOne 唤醒了一个线程 " + System.currentTimeMillis());
             lock.notify();
         }
     }
@@ -90,18 +90,18 @@ class NotifyM extends Thread {
 /**
  * 调用多个 notify() 方法会随机将 wait 状态的线程进行唤醒
  */
-class NotifyMs extends Thread {
+class NotifyMulti extends Thread {
 
     private Object lock;
 
-    public NotifyMs(Object lock) {
+    public NotifyMulti(Object lock) {
         this.lock = lock;
     }
 
     @Override
     public void run() {
         synchronized (lock) {
-            System.out.println("motifyMs");
+            System.out.println("NotifyMulti");
             lock.notify();
             lock.notify();
             lock.notify();
@@ -144,12 +144,12 @@ public class Test2 {
 
         Thread.sleep(2000);
 
-        /*NotifyM notifyM = new NotifyM(lock);
-        notifyM.start();
-        NotifyMs notifyMs = new NotifyMs(lock);
-        notifyMs.start();*/
-        NotifyAll notifyAll = new NotifyAll(lock);
-        notifyAll.start();
+        /*NotifyOne notifyOne = new NotifyOne(lock);
+        notifyOne.start();*/
+        NotifyMulti notifyMulti = new NotifyMulti(lock);
+        notifyMulti.start();
+        /*NotifyAll notifyAll = new NotifyAll(lock);
+        notifyAll.start();*/
     }
 
 }

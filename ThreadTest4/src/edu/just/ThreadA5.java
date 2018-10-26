@@ -4,19 +4,46 @@ class Service5 {
 
     public void testMethod(Object lock) {
         synchronized (lock) {
+            System.out.println(Thread.currentThread().getName() + " be1gin wait "
+                + System.currentTimeMillis());
             try {
-                System.out.println(Thread.currentThread().getName() + " be1gin wait "
-                    + System.currentTimeMillis());
                 lock.wait();
                 System.out.println(Thread.currentThread().getName() + " end wait "
                         + System.currentTimeMillis());
             } catch (InterruptedException e) {
+                System.out.println("发生异常...");
                 e.printStackTrace();
-                System.out.println("线程被打断了");
             }
         }
     }
 
+    public void testMethod2(Object lock) {
+        synchronized (lock) {
+            System.out.println(Thread.currentThread().getName() + " begin 2");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println(Thread.currentThread().getName() + " end 2");
+        }
+    }
+
+}
+
+class ThreadB5 extends Thread {
+
+    private Object lock;
+
+    public ThreadB5(Object lock) {
+        this.lock = lock;
+    }
+
+    @Override
+    public void run() {
+        Service5 service5 = new Service5();
+        service5.testMethod2(lock);
+    }
 }
 
 public class ThreadA5 extends Thread {
@@ -45,7 +72,10 @@ public class ThreadA5 extends Thread {
         Object lock = new Object();
         ThreadA5 threadA5 = new ThreadA5(lock);
         threadA5.start();
-        Thread.sleep(2000);
         threadA5.interrupt();
+        Thread.sleep(2000);
+
+        ThreadB5 threadB5 = new ThreadB5(lock);
+        threadB5.start();
     }
 }

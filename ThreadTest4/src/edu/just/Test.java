@@ -11,15 +11,16 @@ class MyThread1 extends Thread {
     @Override
     public void run() {
         synchronized (lock) {
-            System.out.println(lock);
-            System.out.println("开始 wait time = " + System.currentTimeMillis());
+            System.out.println(Thread.currentThread().getName()
+                    + " 开始 wait time = " + System.currentTimeMillis());
             try {
                 //wait 使线程 thread1 停止运行
                 lock.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println("结束 wait time = " + System.currentTimeMillis());
+            System.out.println(Thread.currentThread().getName()
+                    + " 结束 wait time = " + System.currentTimeMillis());
         }
     }
 }
@@ -35,11 +36,37 @@ class MyThread2 extends Thread {
     @Override
     public void run() {
         synchronized (lock) {
-            System.out.println(lock);
-            System.out.println("开始 notify time = " + System.currentTimeMillis());
+            System.out.println(Thread.currentThread().getName()
+                    + " 开始 notify time = " + System.currentTimeMillis());
             //线程 thread2 使停止的 thread1 继续运行
             lock.notify();
-            System.out.println("结束 notify time = " + System.currentTimeMillis());
+            System.out.println(Thread.currentThread().getName()
+                    + " 结束 notify time = " + System.currentTimeMillis());
+        }
+    }
+}
+
+class MyThread3 extends Thread {
+
+    private Object lock;
+
+    public MyThread3(Object lock) {
+        this.lock = lock;
+    }
+
+    @Override
+    public void run() {
+        synchronized (lock) {
+            System.out.println(Thread.currentThread().getName()
+                    + " 开始  wait time = " + System.currentTimeMillis());
+            try {
+                //wait 使线程 thread1 停止运行
+                lock.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println(Thread.currentThread().getName()
+                    + " 结束 wait time = " + System.currentTimeMillis());
         }
     }
 }
@@ -58,9 +85,17 @@ public class Test extends Thread {
     public static void main(String[] args) throws InterruptedException {
         Object lock = new Object();
         MyThread1 thread1 = new MyThread1(lock);
+        thread1.setName("AAA");
         thread1.start();
         Thread.sleep(2000);
+
+        /*MyThread3 thread3 = new MyThread3(lock);
+        thread3.setName("CCC");
+        thread3.start();
+        Thread.sleep(2000);*/
+
         MyThread2 thread2 = new MyThread2(lock);
+        thread2.setName("BBB");
         thread2.start();
     }
 

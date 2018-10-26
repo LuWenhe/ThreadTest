@@ -38,7 +38,7 @@ public class MyRunnable2 {
         Thread thread = new Thread(runnable);
         thread.setName("AAA");
         thread.start();
-        Thread.sleep(2000);
+        Thread.sleep(200);
         Thread thread1 = new Thread(runnable2);
         thread1.setName("BBB");
         thread1.start();

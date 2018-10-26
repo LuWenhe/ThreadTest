@@ -33,7 +33,6 @@ class ThreadB2 extends Thread {
                 if (MyList2.size() == 5) {
                     object.notify();
                     System.out.println("已经消除通知");
-                    System.out.println("aaa");
                 }
                 System.out.println(Thread.currentThread().getName()
                         + " 添加了" + (i + 1) + " 个元素");

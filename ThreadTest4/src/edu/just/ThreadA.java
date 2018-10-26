@@ -17,6 +17,9 @@ class MyList {
 
 }
 
+/**
+ * 线程 B 需要不停的通过 while 语句轮询机制来检测某一个条件，这样会浪费 CPU 的资源
+ */
 class ThreadB extends Thread {
 
     private MyList myList;

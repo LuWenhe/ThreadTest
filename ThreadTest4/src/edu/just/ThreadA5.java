@@ -34,6 +34,8 @@ public class ThreadA5 extends Thread {
     }
 
     /**
+     * 在线程呈 wait() 状态时，调用线程对象的 interrupt() 方法会出现 InterruptedException 异常
+     *
      * 1.执行完同步代码块就会释放对象的锁
      * 2.在执行同步代码块的过程中，遇到异常而导致线程终止，锁也会被释放
      * 3.在执行同步代码块的过程中，执行了锁所属对象的 wait 方法，这个过程会释放对象锁，

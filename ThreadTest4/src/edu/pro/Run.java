@@ -25,7 +25,7 @@ class Producer {
     public void setValue() {
         synchronized (lock) {
             //如果 value 不为空，说明缓冲区是满的，生产者停止生产，需要消费者进行消费
-            if (!ValueObject.value.equals("")) {
+            while (!ValueObject.value.equals("")) {
                 try {
                     lock.wait();
                 } catch (InterruptedException e) {
@@ -56,7 +56,7 @@ class Customer {
     public void getValue() {
         synchronized (lock) {
             //如果 vlaue 为空，说明缓冲区为空，此时消费者停止消费
-            if (ValueObject.value.equals("")) {
+            while (ValueObject.value.equals("")) {
                 try {
                     lock.wait();
                 } catch (InterruptedException e) {

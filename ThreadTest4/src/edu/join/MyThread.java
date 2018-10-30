@@ -5,9 +5,9 @@ public class MyThread extends Thread {
     @Override
     public void run() {
         try {
-            int secondVal = (int) (Math.random() * 1000);
-            System.out.println(secondVal);
+            int secondVal = 2000;
             Thread.sleep(secondVal);
+            System.out.println("run...");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

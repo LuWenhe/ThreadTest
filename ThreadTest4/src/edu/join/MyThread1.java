@@ -25,12 +25,10 @@ public class MyThread1 extends Thread {
      * 3.synchronized 使用对象监视器原理作为同步
      */
     public static void main(String[] args) throws InterruptedException {
-        System.out.println(System.currentTimeMillis());
         MyThread1 myThread1 = new MyThread1();
+        myThread1.setName("AAA");
         myThread1.start();
-        myThread1.join(1000);
-        Thread.sleep(10000);
+        myThread1.join();
         System.out.println("我想当 myThread 对象执行完毕之后我在执行");
-        System.out.println(System.currentTimeMillis());
     }
 }

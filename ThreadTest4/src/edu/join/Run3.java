@@ -6,11 +6,11 @@ class ThreadA3 extends Thread {
     public void run() {
         System.out.println(Thread.currentThread().getName() + " begin "
                 + System.currentTimeMillis());
-        try {
+        /*try {
             Thread.sleep(8000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
         System.out.println(Thread.currentThread().getName() + " end "
                 + System.currentTimeMillis());
     }
@@ -32,15 +32,28 @@ class ThreadB3 extends Thread {
     @Override
     public void run() {
         synchronized (threadA3) {
-            System.out.println(Thread.currentThread().getName() + " begin "
+            System.out.println(Thread.currentThread().getName() + " beginb "
                     + System.currentTimeMillis());
-            threadA3.start();
             try {
-                threadA3.join(5000);
+                System.out.println(threadA3.isAlive());
+                threadA3.start();
+                /**
+                 * while (threadA3.isAlive()) {
+                 *      threadA3.wait(0);           //持有对象锁的那个线程 BBB 进入等待队列
+                 * }
+                 */
+//                threadA3.join();
+
+                /**
+                 * while (this.isAlive()) {
+                 *      this.wait(0);           //持有对象锁的线程 BBB 进入等待队列，没有其他线程来唤醒
+                 * }
+                 */
+                join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println(Thread.currentThread().getName() + " end "
+            System.out.println(Thread.currentThread().getName() + " endb "
                     + System.currentTimeMillis());
         }
     }
@@ -53,6 +66,7 @@ public class Run3 {
         threadA3.setName("AAA");
         ThreadB3 threadB3 = new ThreadB3(threadA3);
         threadB3.setName("BBB");
+
         threadB3.start();
     }
 

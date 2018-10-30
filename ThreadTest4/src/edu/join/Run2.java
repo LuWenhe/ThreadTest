@@ -1,23 +1,41 @@
 package edu.join;
 
+import edu.test1.Test;
+
 /**
  * Thread.sleep() 方法是不释放锁的，
  */
-class Thread2 extends Thread {
+class ThreadB2 extends Thread {
 
-    private Object object;
+    @Override
+    public void run() {
+        synchronized (this) {
+            System.out.println(Thread.currentThread().getName() + " beg "
+                    + System.currentTimeMillis());
+            System.out.println(Thread.currentThread().getName() + " end "
+                    + System.currentTimeMillis());
+        }
+    }
+}
 
-    public Thread2(Object object) {
-        this.object = object;
+class ThreadA2 extends Thread {
+
+    private ThreadB2 threadB2;
+
+    public ThreadA2(ThreadB2 threadB2) {
+        this.threadB2 = threadB2;
     }
 
     @Override
     public void run() {
-        synchronized (object) {
-            System.out.println(Thread.currentThread().getName() + " begin "
+        synchronized (threadB2) {
+            System.out.println(Thread.currentThread().getName() + " beg "
                     + System.currentTimeMillis());
             try {
-                Thread.sleep(4000);
+                System.out.println("wait之前：" + threadB2.isAlive());
+//                Thread.sleep(2000);
+                threadB2.join();
+                System.out.println("wait 之后" + threadB2.isAlive());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -27,34 +45,16 @@ class Thread2 extends Thread {
     }
 }
 
-class Thread2_1 extends Thread {
-
-    private Object object;
-
-    public Thread2_1(Object object) {
-        this.object = object;
-    }
-
-    @Override
-    public void run() {
-        synchronized (object) {
-            System.out.println(Thread.currentThread().getName() + " end "
-                    + System.currentTimeMillis());
-
-            System.out.println(Thread.currentThread().getName() + " end "
-                    + System.currentTimeMillis());
-        }
-    }
-}
-
 public class Run2 {
 
-    public static void main(String[] args) throws InterruptedException {
-        Object object = new Object();
-        Thread2 thread2 = new Thread2(object);
-        thread2.start();
-        Thread2_1 thread2_1 = new Thread2_1(object);
-        thread2_1.start();
+    public static void main(String[] args) {
+        ThreadB2 threadB2 = new ThreadB2();
+        threadB2.setName("BBB");
+        ThreadA2 threadA2 = new ThreadA2(threadB2);
+        threadA2.setName("AAA");
+
+        threadA2.start();
+        threadB2.start();
     }
 
 }

@@ -11,7 +11,7 @@ public class MyRunnable2 {
                 System.out.println(Thread.currentThread().getName()
                         + " wait begin " + System.currentTimeMillis());
                 try {
-                    lock.wait(5000);
+                    lock.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -27,9 +27,9 @@ public class MyRunnable2 {
             synchronized (lock) {
                 System.out.println(Thread.currentThread().getName()
                         + " notify begin " + System.currentTimeMillis());
-                lock.notify();
+//                lock.notify();
                 System.out.println(Thread.currentThread().getName()
-                        + " notify end" + System.currentTimeMillis());
+                        + " notify end " + System.currentTimeMillis());
             }
         }
     };

@@ -23,6 +23,7 @@ class Service3 {
             System.out.println(Thread.currentThread().getName() + " 正在执行 "
                     + count++);
             condition.await();
+            System.out.println("after...");
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
@@ -36,9 +37,11 @@ class Service3 {
             System.out.println("是否有线程正在等待该Condition对象：" + lock.hasWaiters(condition));
             System.out.println("有 " + lock.getWaitQueueLength(condition)
                     + " 个线程正在等待 condition");
+            System.out.println("当前线程调用 lock() 方法的次数：" + lock.getHoldCount());
             condition.signalAll();
             System.out.println("还有 " + lock.getWaitQueueLength(condition)
-                    + " 个线程正在等待");
+                    + " 个线程正在等待 condition");
+            System.out.println("正在获取 lock 锁的线程的估计数：" + lock.getHoldCount());
         } finally {
             lock.unlock();
         }

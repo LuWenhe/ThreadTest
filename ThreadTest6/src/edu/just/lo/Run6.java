@@ -19,9 +19,14 @@ class Service6 {
 
     public void serviceMethod() {
         try {
+            System.out.println(Thread.currentThread().getName() + " 是否保持此锁定："
+                    + lock.isHeldByCurrentThread() + " " + lock.isLocked());
             lock.lock();
+            System.out.println(Thread.currentThread().getName() + " 是否保持此锁定："
+                    + lock.isHeldByCurrentThread() + " " + lock.isLocked());
             System.out.println(Thread.currentThread().getName()
                     + " 公平锁的情况：" + lock.isFair());
+            System.out.println();
         } finally {
             lock.unlock();
         }

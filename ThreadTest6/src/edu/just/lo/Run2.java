@@ -12,9 +12,6 @@ class Service2 {
     public void serviceMethod() {
         try {
             lock.lock();
-            System.out.println(Thread.currentThread().getName() + " serviceMethod");
-            System.out.println(Thread.currentThread().getName() + " 正在等待获取 lock 锁定的个数是："
-                    + lock.getQueueLength());
             Thread.sleep(Integer.MAX_VALUE);
         } catch (InterruptedException e) {
             e.printStackTrace();

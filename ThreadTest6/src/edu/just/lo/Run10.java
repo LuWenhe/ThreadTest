@@ -2,43 +2,27 @@ package edu.just.lo;
 
 import java.util.concurrent.locks.ReentrantLock;
 
-/**
- * tryLock()：在调用try()方法的时候，如果锁没有被另外一个线程持有，
- *            那么就返回true，否则返回false
- */
 class MyService10 {
 
-    public ReentrantLock lock = new ReentrantLock();
-    private boolean tryLock;
+    private ReentrantLock lock = new ReentrantLock();
 
     public void waitMethod() {
-        lock.lock();
-
-        tryLock = lock.tryLock();
-        if (tryLock) {
-            System.out.println("该lock锁有没有被另一个线程保持：" + tryLock);
-            System.out.println(Thread.currentThread().getName() + " 获得锁 ");
+        if (lock.tryLock()) {
+            try {
+                System.out.println(Thread.currentThread().getName() + " 获得了锁 " + System.currentTimeMillis());
+            } finally {
+                lock.unlock();
+            }
         } else {
-            System.out.println("该lock锁有没有被另一个线程保持：" + tryLock);
-            System.out.println(Thread.currentThread().getName() + " 没有获得锁 ");
+            System.out.println(Thread.currentThread().getName() + " 没有获得锁 " + System.currentTimeMillis());
         }
-
-        lock.unlock();
     }
-
-    /*public void waitMethod1() {
-        if (tryLock) {
-            System.out.println(Thread.currentThread().getName() + " 获得了锁 ");
-        } else {
-            System.out.println(Thread.currentThread().getName() + " 没有获得锁");
-        }
-    }*/
 
 }
 
 public class Run10 {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         MyService10 service10 = new MyService10();
         Runnable runnable = new Runnable() {
             @Override
@@ -50,6 +34,8 @@ public class Run10 {
         Thread thread = new Thread(runnable);
         thread.setName("AAA");
         thread.start();
+
+        Thread.sleep(2000);
 
         Thread thread1 = new Thread(runnable);
         thread1.setName("BBB");

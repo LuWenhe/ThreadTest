@@ -43,7 +43,6 @@ public class FairTest {
             threads[i] = new Thread(runnable);
             threads[i].start();
         }
-
     }
 
 }

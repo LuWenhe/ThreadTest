@@ -19,6 +19,7 @@ class Service4 {
             System.out.println(Thread.currentThread().getName() + " 正在执行");
             System.out.println("查询是否有线程正在等待与此锁定相关的Condition：" + lock.hasWaiters(condition));
             Thread.sleep(100000000);
+            System.out.println("ss");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }finally {

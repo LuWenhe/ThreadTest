@@ -11,7 +11,8 @@ class MyService2 {
 
     public void write() {
         try {
-            lock.writeLock().lock();
+            ReentrantReadWriteLock.WriteLock writeLock = lock.writeLock();
+            writeLock.lock();
             System.out.println(Thread.currentThread().getName() + " 获得写锁 "
                     + System.currentTimeMillis());
             Thread.sleep(10000);

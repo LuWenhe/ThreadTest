@@ -14,8 +14,7 @@ class MyService {
             lock.readLock().lock();
             System.out.println(Thread.currentThread().getName() + " 获得读锁 "
                     + System.currentTimeMillis());
-            Thread.sleep(5000);
-            System.out.println(123);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
@@ -62,8 +61,6 @@ public class ReadAndRead {
         ThreadA threadA = new ThreadA(service);
         threadA.setName("AAAA");
         threadA.start();
-
-//        Thread.sleep(2000);
 
         ThreadB threadB = new ThreadB(service);
         threadB.setName("BBBB");

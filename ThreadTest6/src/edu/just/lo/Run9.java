@@ -1,6 +1,5 @@
 package edu.just.lo;
 
-import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -9,23 +8,21 @@ import java.util.concurrent.locks.ReentrantLock;
 class MyService9 {
 
     public ReentrantLock lock = new ReentrantLock();
-    public Condition condition = lock.newCondition();
 
     public void waitMethod() {
         try {
-//            lock.lock();
             lock.lockInterruptibly();
-            System.out.println("lock begin：" + Thread.currentThread().getName());
-            String name = Thread.currentThread().getName();
+            System.out.println("lock begin：" + Thread.currentThread().getName()
+                    + " " + System.currentTimeMillis());
             for (int i = 0; i < 10; i++) {
-                System.out.println(name + " i = " + i);
+
             }
-            System.out.println("lock end：" + Thread.currentThread().getName());
+            System.out.println("lock end：" + Thread.currentThread().getName()
+                    + " " + System.currentTimeMillis());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
             if (lock.isHeldByCurrentThread()) {
-                System.out.println("isheldbycorrentthread...");
                 lock.unlock();
             }
         }

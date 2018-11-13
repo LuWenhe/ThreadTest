@@ -11,6 +11,7 @@ class MyService10 {
             try {
                 System.out.println(Thread.currentThread().getName() + " 获得了锁 " + System.currentTimeMillis());
             } finally {
+                System.out.println(Thread.currentThread().getName() + " 释放了锁 " + System.currentTimeMillis());
                 lock.unlock();
             }
         } else {

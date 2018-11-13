@@ -11,9 +11,18 @@ class MyService11 extends ReentrantLock {
 
     public void waitMethod() {
         try {
-            if (tryLock(5, TimeUnit.SECONDS)) {
-                System.out.println(Thread.currentThread().getName() + " 获得了锁 "
-                        + System.currentTimeMillis());
+            if (tryLock(2, TimeUnit.SECONDS)) {
+                try {
+                    System.out.println(Thread.currentThread().getName() + " 获得了锁 "
+                            + System.currentTimeMillis());
+                } finally {
+                    Thread.sleep(6000);
+                    System.out.println(Thread.currentThread().getName() + " 释放了锁 "
+                            + System.currentTimeMillis());
+                    unlock();
+                }
+                /*System.out.println(Thread.currentThread().getName() + " 获得了锁 "
+                        + System.currentTimeMillis());*/
             } else {
                 System.out.println(Thread.currentThread().getName() + " 没有获得锁"
                         + System.currentTimeMillis());

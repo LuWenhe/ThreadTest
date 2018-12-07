@@ -20,6 +20,8 @@ public class Main {
 
         threadSend.start();
         threadReceiver.start();
+        
+        System.out.print("hello");
     }
 
 }
